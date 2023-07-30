@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
 from e_commerce.core.models import SoftDeletation
+from .managers import ProductManager
 
 
 class Brand(SoftDeletation):
@@ -59,6 +60,8 @@ class Product(SoftDeletation):
     class Meta:
         verbose_name = _('Product')
         verbose_name_plural = _('Products')
+
+    objects = ProductManager()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
