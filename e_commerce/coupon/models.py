@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import MinValueValidator , MaxValueValidator
 from e_commerce.products.models import Product, Category
 
 
@@ -16,7 +17,7 @@ class Coupon(models.Model):
     amount = models.DecimalField(verbose_name=_('amount'), max_digits=10, decimal_places=2)
     type = models.CharField(verbose_name=_('coupon type'), choices=COUPON_TYPE, max_length=10)
     percent_off = models.IntegerField(verbose_name=_('percent off'), help_text='Percent off (1~100)', null=True,
-                                      blank=True)
+                                      blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)])
     is_active = models.BooleanField(verbose_name=_('active'), )
     max_use = models.IntegerField(verbose_name=_('max use'), help_text=_('Maximum number of uses for this coupon'),
                                   default=0)
