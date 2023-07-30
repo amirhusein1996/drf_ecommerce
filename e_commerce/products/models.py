@@ -70,7 +70,8 @@ class Product(SoftDeletation):
 
 class ProductImage(SoftDeletation):
     image = models.ImageField(verbose_name=_('image'), upload_to='images/products/', blank=True, null=True)
-    product = models.ForeignKey(verbose_name=_('product'), to=Product, null=True, on_delete=models.CASCADE)
+    product = models.ForeignKey(verbose_name=_('product'), to=Product, null=True, on_delete=models.CASCADE,
+                                related_name='images')
 
     class Meta:
         verbose_name = _('ProductImage')
