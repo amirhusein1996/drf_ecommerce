@@ -49,6 +49,8 @@ class Product(SoftDeletation):
     short_description = models.CharField(verbose_name=_('short description'), max_length=500)
     description = models.TextField(verbose_name=_('description'), blank=True)
     price = models.DecimalField(verbose_name=_('price'), max_digits=10, decimal_places=2)
+    main_image = models.ImageField(verbose_name=_('main image'), upload_to='images/products/main/',
+                                   blank=True, null=True)
     brand = models.ForeignKey(verbose_name=_('brand'), to=Brand, on_delete=models.PROTECT)
     category = TreeForeignKey(verbose_name=_('categories'), to=Category, related_name='products')
     slug = models.SlugField(verbose_name=_('slug'), max_length=255, null=True, blank=True, editable=False)
@@ -66,7 +68,7 @@ class Product(SoftDeletation):
 
 
 class ProductImage(SoftDeletation):
-    image = models.ImageField(verbose_name=_('amount'), upload_to='images/products/', blank=True, null=True)
+    image = models.ImageField(verbose_name=_('image'), upload_to='images/products/', blank=True, null=True)
     product = models.ForeignKey(verbose_name=_('product'), to=Product, null=True, on_delete=models.CASCADE)
 
     class Meta:
