@@ -28,7 +28,11 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    'rest_framework_simplejwt'
     "drf_spectacular",
+    'mptt',
+    'phonenumber_field',
+    'django_countries',
 ]
 
 LOCAL_APPS = [
@@ -50,7 +54,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "e_commerce.urls"
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
@@ -98,6 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
 
 # Internationalization
 
@@ -113,7 +118,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / 'e_commerce/static'
+
+MEDIA_URL = 'media'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
