@@ -38,7 +38,7 @@ class Product(SoftDeletation):
     description = models.TextField(verbose_name=_('description'), blank=True)
     price = models.DecimalField(verbose_name=_('price'), max_digits=10, decimal_places=2)
     brand = models.ForeignKey(verbose_name=_('brand'), to=Brand, on_delete=models.PROTECT)
-    categories = TreeManyToManyField(verbose_name=_('categories'), to=Category, related_name='products')
+    category = TreeForeignKey(verbose_name=_('categories'), to=Category, related_name='products')
 
     class Meta:
         verbose_name = _('Product')
