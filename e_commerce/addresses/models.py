@@ -32,6 +32,14 @@ class Address(models.Model):
 class BillingAddress(Address):
     email = models.EmailField()
 
+    class Meta:
+        verbose_name = _('Billing Address')
+        verbose_name_plural = _('Billing Addresses')
+
 
 class ShippingAddress(Address):
     is_primary = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _('Shipping Address')
+        verbose_name_plural = _('Shipping Addresses')
