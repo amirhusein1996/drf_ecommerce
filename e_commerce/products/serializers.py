@@ -39,6 +39,7 @@ class ProductDetailModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+        read_only_fields = ('id', 'categories')
 
     def get_categories(self, obj: Product):
         serializer = CategoryModelSerializer(
