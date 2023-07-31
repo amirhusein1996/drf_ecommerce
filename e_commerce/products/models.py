@@ -52,7 +52,7 @@ class Product(SoftDeletation):
     price = models.DecimalField(verbose_name=_('price'), max_digits=10, decimal_places=2)
     main_image = models.ImageField(verbose_name=_('main image'), upload_to='images/products/main/',
                                    blank=True, null=True)
-    brand = models.ForeignKey(verbose_name=_('brand'), to=Brand, on_delete=models.PROTECT)
+    brand = models.ForeignKey(verbose_name=_('brand'), to=Brand, on_delete=models.PROTECT, related_name='products')
     category = TreeForeignKey(verbose_name=_('categories'), to=Category, related_name='products',
                               on_delete=models.PROTECT)
     slug = models.SlugField(verbose_name=_('slug'), max_length=255, null=True, blank=True, editable=False)
