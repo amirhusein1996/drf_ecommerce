@@ -23,7 +23,11 @@ class CategoryModelSerializer(serializers.ModelSerializer):
 
 
 class ProductImageModelSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = ProductImage
+        fields = ('id', 'image', 'product')
+        read_only_fields = ('id',)
+        write_only_fields = ('product',)
 
 
 class ProductDetailModelSerializer(serializers.ModelSerializer):
