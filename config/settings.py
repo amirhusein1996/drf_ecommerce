@@ -3,9 +3,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-sp+6j(klrk-gwdo(42*m7@1e5d@by)xfj5&4^a6bc(_&(hv9s)"
 
@@ -13,7 +10,6 @@ SECRET_KEY = "django-insecure-sp+6j(klrk-gwdo(42*m7@1e5d@by)xfj5&4^a6bc(_&(hv9s)
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -28,7 +24,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
-    'rest_framework_simplejwt'
+    # 'rest_framework_simplejwt'
     "drf_spectacular",
     'mptt',
     'phonenumber_field',
@@ -36,11 +32,13 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "e_commerce.users",
+    'e_commerce.addresses',
     "e_commerce.core",
-    "e_commerce.products",
+    'e_commerce.coupon',
     "e_commerce.orders",
-    
+    "e_commerce.products",
+    "e_commerce.users",
+
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -72,8 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "e_commerce.wsgi.application"
-
+WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 
@@ -83,7 +80,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 
@@ -114,22 +110,45 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / 'e_commerce/static'
 
-MEDIA_URL = 'media'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'My API',
+    'DESCRIPTION': 'My API description',
+    'VERSION': '1.0.0',
+    'SCHEMA_PATH_PREFIX': '/api/v1',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
+    'TAGS': [
+        {
+            "name": "Simple JWT Authentication",
+            "description": "SimpleJWT token views"
+        },
+        {
+            "name": "Brand",
+            "description": "Related to Product model, which supports CRUD operations on Brand"
+        },
+        {
+            "name": "Category",
+            "description": "Related to Product model, which supports CRUD operations on Category"
+        },
+
+    ]
 }
