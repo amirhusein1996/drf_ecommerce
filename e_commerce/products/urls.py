@@ -23,7 +23,7 @@ category_urls = [
 
 product_urls = [
     path('products/<int:pk>/images/', views.ProductImageListAPIView.as_view(), name='product_images'),
-    path('products/<int:pk>/categories/', views.CategoryProductListAPIView.as_view(), name='product_categories'),
+    path('products/<int:pk>/categories/', views.ProductCategoryListAPIView.as_view(), name='product_categories'),
 ]
 
 urlpatterns: list = brand_urls + category_urls + product_urls + router.urls

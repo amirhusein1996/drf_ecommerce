@@ -24,17 +24,23 @@ class CategoryModelViewSet(ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
 
 
+@extend_schema(tags=['Category', 'Product'])
 class CategoryProductListAPIView(ListAPIView):
+    """
+    - Takes id path param as category id
+    - Returns products related to category and descendant or children category
+    """
     serializer_class = ProductListModelSerializer
     model = Category
     product_model = Product
 
     def get_queryset(self):
         category_id: int = self.kwargs.get('id')
-        descendant_categories = self.model.objects.get_descendants(include_self = True)
+        descendant_categories = self.model.objects.get_descendants(include_self=True)
         return self.product_model.objects.filter(
             category__in=descendant_categories
         )
+
 
 @extend_schema(tags=['Brand'])
 class BrandModelViewSet(ModelViewSet):
@@ -43,6 +49,7 @@ class BrandModelViewSet(ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
 
 
+@extend_schema(tags=['Brand', 'Product'])
 class BrandProductListAPIView(ListAPIView):
     """
     - Takes id path param as brand id
@@ -73,7 +80,8 @@ class ProductModelViewSet(ModelViewSet):
         return super().get_queryset().prefetch_related('images')
 
 
-class CategoryProductListAPIView(ListAPIView):
+@extend_schema(tags=['Category', 'Product'])
+class ProductCategoryListAPIView(ListAPIView):
     """
     - Takes id path param as product id
     - Returns category and its ancestors or parents related to product
@@ -88,13 +96,14 @@ class CategoryProductListAPIView(ListAPIView):
         return category.get_ancestors(include_self=True)
 
 
-@extend_schema(tags=['Product Image'])
+@extend_schema(tags=['Product Image', 'Product'])
 class ProductImageModelViewSet(ModelViewSet):
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageModelSerializer
     permission_classes = [IsAdminOrReadOnly]
 
 
+@extend_schema(tags=['Product Image', 'Product'])
 class ProductImageListAPIView(ListAPIView):
     """
     - Takes id path param as product id
