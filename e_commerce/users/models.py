@@ -23,7 +23,7 @@ class User(AbstractUser):
        """
 
     email = models.EmailField(_("email address"), blank=True, unique=True)
-    _old_email = models.EmailField(blank=True, null=True, editable=False)
+    old_email = models.EmailField(blank=True, null=True, editable=False)
     has_verified_email = models.BooleanField(verbose_name=_('verify email'), default=False)
     age = models.PositiveSmallIntegerField(verbose_name=_('age'), blank=True)
     avatar = models.ImageField(verbose_name=_('avatar'),upload_to='images/profiles', blank=True, null=True)
