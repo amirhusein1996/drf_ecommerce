@@ -161,6 +161,6 @@ cython_debug/
 
 #extra
 note.txt
-Copy
+**/note.txt
 **/migrations/*.py
 !**/migrations/__init__.py
